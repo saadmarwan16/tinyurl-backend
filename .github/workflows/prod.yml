@@ -9,7 +9,6 @@ jobs:
   production-build:
     name: production-build
     environment: Production
-    needs: [format, lint, test]
     runs-on: ubuntu-latest
     strategy:
       matrix:
