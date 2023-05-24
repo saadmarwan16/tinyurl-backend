@@ -1,6 +1,8 @@
 service: tinyurl
 frameworkVersion: '3'
 
+useDotenv: true
+
 custom:
   tableName: 'urls-db-${sls:stage}'
 
@@ -22,6 +24,7 @@ provider:
             - Fn::GetAtt: [UrlsTable, Arn]
   environment:
     URLS_TABLE: ${self:custom.tableName}
+    STAGE: ${env:STAGE}
 
 functions:
   urls:
@@ -33,6 +36,11 @@ functions:
       - httpApi:
           path: /urls/{id}
           method: GET
+
+# package:
+#   exclude:
+#     - src/__tests__/**
+#     - node_modules/**
 
 plugins:
   - serverless-plugin-typescript
