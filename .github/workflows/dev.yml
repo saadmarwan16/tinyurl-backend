@@ -16,7 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/prepare
-      - uses: ./.github/actions/env
+      - name: Create dotenv file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_STAGE: ${{ secrets.STAGE }}
+          file_name: .env
       - run: yarn build
       - name: Deploy to development stage
         uses: serverless/github-action@v3
