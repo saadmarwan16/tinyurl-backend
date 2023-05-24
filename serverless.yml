@@ -1,6 +1,8 @@
 service: tinyurl
 frameworkVersion: '3'
 
+useDotenv: true
+
 custom:
   tableName: 'urls-db-${sls:stage}'
 
