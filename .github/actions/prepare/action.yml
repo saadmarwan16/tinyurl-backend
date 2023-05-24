@@ -1,0 +1,13 @@
+name: Prepare
+description: Prepares the repo for a typical CI job
+
+runs:
+  using: composite
+  steps:
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: yarn
+    - run: yarn ci
+      shell: bash

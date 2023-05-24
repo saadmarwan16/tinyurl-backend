@@ -1,0 +1,31 @@
+name: Deploy the code to the production stage
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  production-build:
+    name: production-build
+    environment: Production
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/prepare
+      - name: Create dotenv file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_STAGE: ${{ secrets.STAGE }}
+          file_name: .env
+      - run: yarn build
+      - name: Deploy to production stage
+        uses: serverless/github-action@v3
+        with:
+          args: deploy --stage prod
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
