@@ -15,19 +15,10 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
-      - run: yarn ci
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_STAGE: ${{ secrets.STAGE }}
-          file_name: .env
+      - uses: ./.github/actions/prepare
+      - uses: ./.github/actions/env
       - run: yarn build
-      - name: serverless deploy
+      - name: Deploy to production stage
         uses: serverless/github-action@v3
         with:
           args: deploy --stage prod
