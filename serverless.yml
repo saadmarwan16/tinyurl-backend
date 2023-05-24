@@ -36,9 +36,6 @@ functions:
       - httpApi:
           path: /urls/{id}
           method: GET
-      - httpApi:
-          path: /docs
-          method: GET
 
 # package:
 #   exclude:
