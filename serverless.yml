@@ -37,10 +37,10 @@ functions:
           path: /urls/{id}
           method: GET
 
-package:
-  exclude:
-    - src/__tests__/**
-    - node_modules/**
+# package:
+#   exclude:
+#     - src/__tests__/**
+#     - node_modules/**
 
 plugins:
   - serverless-plugin-typescript
