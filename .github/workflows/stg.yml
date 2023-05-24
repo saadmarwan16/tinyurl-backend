@@ -9,6 +9,7 @@ jobs:
   staging-build:
     name: staging-build
     environment: Staging
+    needs: [format, lint, test]
     runs-on: ubuntu-latest
     strategy:
       matrix:

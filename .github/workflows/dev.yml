@@ -9,6 +9,7 @@ jobs:
   development-build:
     name: development-build
     environment: Development
+    needs: [format, lint, test]
     runs-on: ubuntu-latest
     strategy:
       matrix:
