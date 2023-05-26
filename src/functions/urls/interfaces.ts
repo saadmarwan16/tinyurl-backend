@@ -3,10 +3,15 @@ export interface IUrlsController {
 }
 
 export interface IUrlsRepository {
-	generateShortUrl(): Promise<Record<string, unknown> | undefined>;
+	generateShortUrl(baseUrl: string): Promise<string | undefined>;
+}
+
+export interface UrlModel {
+	id: string;
+	token: number;
 }
 
 export interface IUrlsProvider {
-	getShortUrlId(): Promise<Record<string, unknown> | undefined>;
+	getShortUrlId(): Promise<UrlModel | undefined>;
 	updateShortUrlId(id: number): Promise<void>;
 }

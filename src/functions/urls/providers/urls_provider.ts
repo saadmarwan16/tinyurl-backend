@@ -1,5 +1,5 @@
 import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
-import { IUrlsProvider } from '../interfaces';
+import { IUrlsProvider, UrlModel } from '../interfaces';
 import { dynamoClient } from '../../../config/dynamo';
 import { injectable } from 'inversify';
 
@@ -8,7 +8,7 @@ export class UrlsProvider implements IUrlsProvider {
 	public tableName = 'urls-db-local';
 	public primaryKey = 'tokenKey';
 
-	async getShortUrlId(): Promise<Record<string, unknown> | undefined> {
+	async getShortUrlId(): Promise<UrlModel | undefined> {
 		const command = new GetCommand({
 			TableName: this.tableName,
 			Key: {
@@ -17,7 +17,7 @@ export class UrlsProvider implements IUrlsProvider {
 		});
 		const results = await dynamoClient.send(command);
 
-		return results.Item;
+		return results.Item as UrlModel | undefined;
 	}
 
 	async updateShortUrlId(id: number): Promise<void> {

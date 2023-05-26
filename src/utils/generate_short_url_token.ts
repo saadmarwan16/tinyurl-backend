@@ -1,7 +1,7 @@
 import { base62 } from '../constants/base62';
 
-export const generateShortUrlToken = (token: number) => {
-	let dividend = Math.floor(token);
+export const generateShortUrlToken = (id: number) => {
+	let dividend = Math.floor(id);
 	if (dividend < 0) throw Error('Token cannot be negative');
 
 	const reversed = [];

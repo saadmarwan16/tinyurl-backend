@@ -1,6 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { IUrlsProvider, IUrlsRepository } from '../interfaces';
 import { TYPES } from '../../../types';
+import { generateShortUrl } from '../../../utils/generate_short_url';
 
 @injectable()
 export class UrlsRepository implements IUrlsRepository {
@@ -8,7 +9,12 @@ export class UrlsRepository implements IUrlsRepository {
 		@inject(TYPES.UrlsProvider) private _urlsProvider: IUrlsProvider
 	) {}
 
-	async generateShortUrl(): Promise<Record<string, unknown> | undefined> {
-		return await this._urlsProvider.getShortUrlId();
+	async generateShortUrl(baseUrl: string): Promise<string | undefined> {
+		const url = await this._urlsProvider.getShortUrlId();
+		const id = url ? url.token + 1 : 0;
+		const token = generateShortUrl(baseUrl, id);
+		await this._urlsProvider.updateShortUrlId(id);
+
+		return token;
 	}
 }
