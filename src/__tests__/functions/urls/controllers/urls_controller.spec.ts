@@ -5,7 +5,7 @@ describe('Urls controller', () => {
 	describe('POST /urls', () => {
 		describe('given the request is properly formed', async () => {
 			it('should return a short url with status code of 201', async () => {
-				const { body, statusCode } = await supertest
+				const { body } = await supertest
 					.post('/urls')
 					.send({
 						longUrl: 'https://google.com',
