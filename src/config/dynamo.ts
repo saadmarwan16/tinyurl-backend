@@ -4,16 +4,10 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { NODE_ENV } from '../constants/secrets';
 
 let dynamoClient: DynamoDBClient;
-console.log('NODE_ENV', NODE_ENV);
 if (NODE_ENV === 'local' || NODE_ENV === 'test') {
-	console.log('Came to this branch since it was a test');
 	dynamoClient = new DynamoDBClient({
 		region: 'local',
 		endpoint: 'http://localhost:8000',
-		credentials: {
-			accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
-		},
 	});
 } else {
 	dynamoClient = new DynamoDBClient({});
