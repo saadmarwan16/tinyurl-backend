@@ -11,8 +11,8 @@ if (NODE_ENV === 'local' || NODE_ENV === 'test') {
 		region: 'local',
 		endpoint: 'http://localhost:8000',
 		credentials: {
-			accessKeyId: 'accessKeyId',
-			secretAccessKey: 'secretAccessKey',
+			accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
 		},
 	});
 } else {
