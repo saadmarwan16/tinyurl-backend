@@ -3,7 +3,7 @@ name: Deploy the code to the production stage
 on:
   push:
     branches:
-      - production
+      - main
 
 jobs:
   production-build:
@@ -27,5 +27,6 @@ jobs:
         with:
           args: deploy --stage prod
         env:
+          NODE_ENV: production
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

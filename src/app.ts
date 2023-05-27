@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 import express, { json, urlencoded, Request, Response } from 'express';
 import { RegisterRoutes } from '../build/routes';
 import { serve, generateHTML, JsonObject } from 'swagger-ui-express';

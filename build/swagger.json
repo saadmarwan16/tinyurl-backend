@@ -5,7 +5,20 @@
 		"parameters": {},
 		"requestBodies": {},
 		"responses": {},
-		"schemas": {},
+		"schemas": {
+			"ShortUrlCreationModel": {
+				"properties": {
+					"longUrl": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"longUrl"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
 		"securitySchemes": {}
 	},
 	"info": {
@@ -19,6 +32,41 @@
 	"openapi": "3.0.0",
 	"paths": {
 		"/urls": {
+			"post": {
+				"operationId": "GenerateShortUrl",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"url": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"url"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ShortUrlCreationModel"
+							}
+						}
+					}
+				}
+			},
 			"get": {
 				"operationId": "GetAllUrls",
 				"responses": {
