@@ -1,5 +1,5 @@
 import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
-import { IUrlsProvider, UrlModel } from '../interfaces';
+import { IUrlsProvider, UrlModel, UrlPairModel } from '../interfaces';
 import { dynamoClient } from '../../../config/dynamo';
 import { injectable } from 'inversify';
 
@@ -27,6 +27,15 @@ export class UrlsProvider implements IUrlsProvider {
 				id: this.primaryKey,
 				token: id,
 			},
+		});
+
+		await dynamoClient.send(command);
+	}
+
+	async saveUrlPair(item: UrlPairModel): Promise<void> {
+		const command = new PutCommand({
+			TableName: this.tableName,
+			Item: item,
 		});
 
 		await dynamoClient.send(command);

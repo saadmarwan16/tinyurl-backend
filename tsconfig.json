@@ -43,5 +43,5 @@
 	},
 
 	"include": ["**/*"],
-	"exclude": ["node_modules/", "build/", "coverage/", "dist/"]
+	"exclude": ["node_modules/", "build/", "coverage/", "dist/", "**/*.spec.ts"]
 }

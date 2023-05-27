@@ -8,9 +8,10 @@ vi.mock('../../utils/generate_short_url_token', () => ({
 describe('Generate short url', () => {
 	describe('given the base url is htpp://localhost:3000', () => {
 		it('should return htpp://localhost:3000/urls/t/dummy', () => {
-			expect(generateShortUrl('htpp://localhost:3000', 0)).toEqual(
-				'htpp://localhost:3000/urls/t/dummy'
-			);
+			expect(generateShortUrl('htpp://localhost:3000', 0)).toEqual({
+				token: 'dummy',
+				shortUrl: 'htpp://localhost:3000/urls/t/dummy',
+			});
 		});
 	});
 });

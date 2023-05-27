@@ -1,9 +1,14 @@
+import { Request } from 'express';
+
 export interface IUrlsController {
-	generateShortUrl(): Promise<Record<string, unknown> | undefined>;
+	generateShortUrl(
+		req: Request,
+		longUrl: ShortUrlCreationModel
+	): Promise<{ url: string }>;
 }
 
 export interface IUrlsRepository {
-	generateShortUrl(baseUrl: string): Promise<string | undefined>;
+	generateShortUrl(host: string, longUrl: string): Promise<string>;
 }
 
 export interface UrlModel {
@@ -11,7 +16,18 @@ export interface UrlModel {
 	token: number;
 }
 
+export interface ShortUrlCreationModel {
+	longUrl: string;
+}
+
+export interface UrlPairModel {
+	id: string;
+	shortUrl: string;
+	longUrl: string;
+}
+
 export interface IUrlsProvider {
 	getShortUrlId(): Promise<UrlModel | undefined>;
 	updateShortUrlId(id: number): Promise<void>;
+	saveUrlPair(item: UrlPairModel): Promise<void>;
 }
