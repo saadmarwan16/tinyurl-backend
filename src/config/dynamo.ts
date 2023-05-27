@@ -6,6 +6,7 @@ import { NODE_ENV } from '../constants/secrets';
 let dynamoClient: DynamoDBClient;
 console.log('NODE_ENV', NODE_ENV);
 if (NODE_ENV === 'local' || NODE_ENV === 'test') {
+	console.log('Came to this branch since it was a test');
 	dynamoClient = new DynamoDBClient({
 		region: 'local',
 		endpoint: 'http://localhost:8000',
