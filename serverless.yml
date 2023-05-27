@@ -35,6 +35,9 @@ functions:
           path: /urls
           method: GET
       - httpApi:
+          path: /urls
+          method: POST
+      - httpApi:
           path: /urls/{id}
           method: GET
 
