@@ -23,5 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/prepare
-      - run: yarn docker:detach
+      # - run: yarn docker:detach
+      - name: Setup DynamoDB Local
+        uses: rrainn/dynamodb-action@v2.0.1
+        with:
+          dbPath: /home/dynamodblocal/data/
+          port: 8000
+          cors: '*'
       - run: yarn test
