@@ -22,4 +22,28 @@ describe('Urls controller', () => {
 			});
 		});
 	});
+
+	describe('GET /urls/:id', () => {
+		describe('given the short url provided is valid', () => {
+			it('should return the long url', async () => {
+				const longUrl = 'https://stackoverflow.com';
+				const {
+					body: { url },
+				} = await supertest
+					.post('/urls')
+					.send({
+						longUrl,
+					})
+					.expect(201);
+				const { body } = await supertest
+					.get('/urls')
+					.query({
+						shortUrl: url,
+					})
+					.expect(200);
+
+				expect(body).toEqual({ url: longUrl });
+			});
+		});
+	});
 });

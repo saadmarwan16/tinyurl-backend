@@ -40,4 +40,16 @@ export class UrlsProvider implements IUrlsProvider {
 
 		await dynamoClient.send(command);
 	}
+
+	async getLongUrl(id: string): Promise<UrlPairModel | undefined> {
+		const command = new GetCommand({
+			TableName: this.tableName,
+			Key: {
+				id,
+			},
+		});
+		const results = await dynamoClient.send(command);
+
+		return results.Item as UrlPairModel | undefined;
+	}
 }

@@ -1,12 +1,12 @@
 import {
 	Controller,
 	Get,
-	Path,
 	Post,
 	Route,
 	SuccessResponse,
 	Request,
 	Body,
+	Query,
 } from 'tsoa';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../../types';
@@ -42,19 +42,27 @@ export class UrlsController extends Controller implements IUrlsController {
 		};
 	}
 
-	@Get()
-	public getAllUrls() {
-		return {
-			message: `Hello, world from STAGE ${process.env.STAGE as string}`,
-		};
-	}
+	// @Get()
+	// public getAllUrls() {
+	// 	return {
+	// 		message: `Hello, world from STAGE ${process.env.STAGE as string}`,
+	// 	};
+	// }
 
-	@Get('/{id}')
-	public getSingleUrl(@Path('id') id: string) {
-		return {
-			message: `Hello, world from STAGE ${
-				process.env.STAGE as string
-			} with id of ${id}`,
-		};
+	@Get()
+	async getSingleUrl(@Query() shortUrl: string) {
+		try {
+			const results = await this._urlsRepository.getLongUrl(shortUrl);
+
+			return {
+				url: results,
+			};
+		} catch (e) {
+			this.setStatus(404);
+
+			return {
+				message: 'The provided short url has no corresponding long url',
+			};
+		}
 	}
 }

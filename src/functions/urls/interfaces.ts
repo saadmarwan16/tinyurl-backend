@@ -9,6 +9,7 @@ export interface IUrlsController {
 
 export interface IUrlsRepository {
 	generateShortUrl(host: string, longUrl: string): Promise<string>;
+	getLongUrl(shortUrl: string): Promise<string>;
 }
 
 export interface UrlModel {
@@ -30,4 +31,5 @@ export interface IUrlsProvider {
 	getShortUrlId(): Promise<UrlModel | undefined>;
 	updateShortUrlId(id: number): Promise<void>;
 	saveUrlPair(item: UrlPairModel): Promise<void>;
+	getLongUrl(id: string): Promise<UrlPairModel | undefined>;
 }

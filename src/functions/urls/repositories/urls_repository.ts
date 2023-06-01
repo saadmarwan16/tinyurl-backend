@@ -3,6 +3,7 @@ import { IUrlsProvider, IUrlsRepository } from '../interfaces';
 import { TYPES } from '../../../types';
 import { generateShortUrl } from '../../../utils/generate_short_url';
 import { constructBaseUrl } from '../../../utils/construct_base_url';
+import { findIdFromUrl } from '../../../utils/find_id_from_url';
 
 @injectable()
 export class UrlsRepository implements IUrlsRepository {
@@ -23,5 +24,14 @@ export class UrlsRepository implements IUrlsRepository {
 		});
 
 		return shortUrl;
+	}
+
+	async getLongUrl(shortUrl: string): Promise<string> {
+		const results = await this._urlsProvider.getLongUrl(
+			findIdFromUrl(shortUrl)
+		);
+		if (!results) throw new Error('Long url not found');
+
+		return results.longUrl;
 	}
 }
